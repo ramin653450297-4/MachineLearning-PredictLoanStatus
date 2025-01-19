@@ -23,7 +23,7 @@ data['loan_status'] = data['loan_status'].map({'Approved': 1, 'Denied': 0})
 data = data.dropna()
 
 # Features and target
-feature_columns = ['age', 'gender','education_level'] + [col for col in data.columns if col.startswith('occupation_')] + ['marital_status', 'income', 'credit_score']
+feature_columns = ['age', 'gender','education_level'] + [col for col in data.columns if col.startswith('occupation_')] + ['marital_status', 'income'] 
 X = data[feature_columns]
 y = data['loan_status']
 

@@ -21,20 +21,19 @@ def predict_loan_status():
         age = age_entry.get()
         gender = gender_combobox.get()
         income = income_entry.get()
-        credit_score = credit_score_entry.get()
         education_level = education_combobox.get()
         marital_status = marital_combobox.get()
         occupation = occupation_combobox.get()
 
         # Validate inputs
-        if not age.isdigit() or not income.replace('.', '', 1).isdigit() or not credit_score.replace('.', '', 1).isdigit():
+        if not age.isdigit() or not income.replace('.', '', 1).isdigit(): 
             messagebox.showerror("Invalid Input", "Please check your numeric inputs.")
             return
 
         # Convert inputs to appropriate data types
         age = int(age)
         income = float(income)
-        credit_score = float(credit_score)
+        # credit_score = float(credit_score)
 
         # Map categorical inputs to numeric values
         gender_map = {'Female': 0, 'Male': 1}
@@ -54,7 +53,7 @@ def predict_loan_status():
         occupation_encoded = [1 if occ == occupation else 0 for occ in all_occupations]
 
         # Prepare feature array
-        input_data = pd.DataFrame([[age, gender_value] + occupation_encoded + [education_value, marital_value, income, credit_score]],
+        input_data = pd.DataFrame([[age, gender_value] + occupation_encoded + [education_value, marital_value, income]], 
                                   columns=feature_columns)
 
         # Scale the input data
@@ -90,10 +89,6 @@ gender_combobox.grid(row=1, column=1, padx=10, pady=10)
 ttk.Label(root, text="Income:").grid(row=2, column=0, padx=10, pady=10)
 income_entry = ttk.Entry(root)
 income_entry.grid(row=2, column=1, padx=10, pady=10)
-
-ttk.Label(root, text="Credit Score:").grid(row=3, column=0, padx=10, pady=10)
-credit_score_entry = ttk.Entry(root)
-credit_score_entry.grid(row=3, column=1, padx=10, pady=10)
 
 ttk.Label(root, text="Education Level:").grid(row=4, column=0, padx=10, pady=10)
 education_combobox = ttk.Combobox(root, values=["Bachelor", "Master", "High School", "Associate", "Doctoral"])
